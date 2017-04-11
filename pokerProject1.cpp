@@ -116,8 +116,8 @@ private:
 	}
 	void Deck::shuffle() {
         for (int i=0;i<500;i++){
-            x = rand() % 52;
-            y = rand() % 52;
+            int x = rand() % 52;
+            int y = rand() % 52;
             Card tempCard = mainDeck[y];
             mainDeck[y] = mainDeck[x];
             mainDeck[x] = tempCard;
