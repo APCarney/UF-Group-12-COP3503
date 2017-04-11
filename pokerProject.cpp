@@ -27,26 +27,23 @@ public:
 
 class Deck {
 public:
-	Deck();
+
 	void shuffle();
 	vector<Card> someshit();
 	vector<Card> mainDeck;
 	vector<Card> tableCardSet;
 
 private:
-	
-//	Deck() {
 
-	//}
 
 };
 
 class Player {
 public:
 	string name;
-private:
 	int money;
-	int playing;
+private:
+	
 	vector <Card> hand;
 	
 };
@@ -58,7 +55,7 @@ public:
 	void flop();
 	void turnRiver();
 	void bets();
-	int handRanking();
+	//int handRanking();
 	int tieBreaker();
 	void winner();
 	void printTable();
@@ -67,6 +64,11 @@ private:
 };
 	
 	void Poker::game(string name) {
+		//while () {}
+			deal();
+			turnRiver();
+			turnRiver();
+
 		
 	}
 
@@ -117,25 +119,34 @@ private:
 	}
 	vector<Card> Deck::someshit() {
 		for (int i = 1; i < 5; i++) {
-			for (int j = 1; j < 14; j++) {
+			for (int j = 2; j < 15; j++) {
 				Card x;
 				x.suit = i;
 				x.rank = j;
 				mainDeck.push_back(x);
 			}
 		}
-		cout << mainDeck[0].rank << " " << mainDeck[0].suit;
+		for (int p = 0; p < mainDeck.size(); p++){
+			cout <<"|"<< mainDeck[p].rank << "," << mainDeck[p].suit << "| ";
+			if (p == 9 || p == 18 || p == 27 || p == 36 || p == 45) {
+				cout << "\n";
+			}
+		}
 		return mainDeck;
 	}
 
 int main() {
-	
+	Player user;
+	user.money = 10, 000;
+	Player Jarvis;
+	Jarvis.name = "Jarvis";
+	Jarvis.money = 10, 000;   
 	Poker poker;
 	string name;
 	Deck chimmy;
 	cout << "Please type your name: ";
-	cin >> name;
-	cout << "Welcome " << name << ", good luck on the poker game!\n\n";
+	cin >> user.name;
+	cout << "Welcome " << user.name << ", good luck on the poker game!\n\n";
 	//	usleep(1000000);
 	//poker.game(name);
 	chimmy.someshit();
