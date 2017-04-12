@@ -186,6 +186,7 @@ void Poker::printTable() {
 
 }
 void Deck::shuffle() {
+	srand (time(NULL));
 	for (int i = 0; i<500; i++) {
 		int x = rand() % 52;
 		int y = rand() % 52;
