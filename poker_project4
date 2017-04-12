@@ -1,5 +1,7 @@
 
 
+
+
 // pokerProject.cpp : Defines the entry point for the console application.
 //
 
@@ -55,8 +57,9 @@ class Poker {
 public:
 	void game(string name);
 	void deal(vector<Card>);
-	void flop();
-	void turnRiver();
+	void flop(vector<Card>);
+	void turn(vector<Card>);
+	void turnRiver(vector<Card>);
 	void bets();
 	//int handRanking();
 	int tieBreaker();
@@ -69,8 +72,8 @@ private:
 void Poker::game(string name) {
 	//while () {}
 	//deal(vector<Card> mainDeck);
-	turnRiver();
-	turnRiver();
+	//turnRiver();
+	//turnRiver();
 
 
 }
@@ -85,26 +88,73 @@ void Poker::deal(vector<Card> mainDeck) {
 	dealDeck.dealerHand.push_back(mainDeck[mainDeck.size() - 3]);
 	dealDeck.dealerHand.push_back(mainDeck[mainDeck.size() - 4]);
 
+	
 	for (int i = 0; i < dealDeck.userHand.size(); i++) {
 
 		cout << "\n";
 
-		cout << dealDeck.userHand[i].rank << " " << dealDeck.userHand[i].suit << "\n";
-		cout << dealDeck.dealerHand[i].rank << " " << dealDeck.dealerHand[i].suit << "\n";
+
+		cout << "| " <<dealDeck.userHand[i].rank << " " << dealDeck.userHand[i].suit << "  |  ";
+
+		cout << dealDeck.dealerHand[i].rank << " " << dealDeck.dealerHand[i].suit << " |\n";
 
 	}
 	
 	printTable();
 	bets();
-	flop();
+	
 }
 
-void Poker::flop() {
-	printTable();
-	bets();
+void Poker::flop(vector<Card> mainDeck) {
+
+	Deck dealDeck;
+
+	dealDeck.tableCardSet.push_back(mainDeck[47]);
+
+	dealDeck.tableCardSet.push_back(mainDeck[46]);
+
+	dealDeck.tableCardSet.push_back(mainDeck[45]);
+
+	for (int i = 0; i < dealDeck.tableCardSet.size(); i++) {
+		 
+		cout << "\n";
+
+		cout << dealDeck.tableCardSet[i].rank << " " << dealDeck.tableCardSet[i].suit << "\n";
+
+	}
+
 }
 
-void Poker::turnRiver() {
+void Poker::turn(vector<Card> mainDeck) {
+
+	Deck dealDeck;
+
+	dealDeck.tableCardSet.push_back(mainDeck[44]);
+
+	for (int i = 0; i < dealDeck.tableCardSet.size(); i++) {
+
+		cout << "\n";
+
+		cout << dealDeck.tableCardSet[i].rank << " " << dealDeck.tableCardSet[i].suit << "\n";
+
+	}
+
+}
+
+void Poker::turnRiver(vector<Card> mainDeck) {
+
+	Deck dealDeck;
+
+	dealDeck.tableCardSet.push_back(mainDeck[43]);
+
+	for (int i = 0; i < dealDeck.tableCardSet.size(); i++) {
+
+		cout << "\n";
+
+		cout << dealDeck.tableCardSet[i].rank << " " << dealDeck.tableCardSet[i].suit << "\n";
+
+	}
+
 	printTable();
 	bets();
 }
@@ -193,8 +243,26 @@ int main() {
 	}
 	
 	cout << "\n";
-	poker.deal(chimmy.mainDeck);
+	
 	cout << "\n";
+	cout << "*** Hand *** \n\n";
+	cout << "  Player  |  Dealer\n";
+	poker.deal(chimmy.mainDeck);
+	cout << "--------------------\n";
+
+	cout << "*** Flop ***\n";
+	poker.flop(chimmy.mainDeck);
+	cout << "--------------------\n";
+
+	cout << "*** Turn ***\n";
+	poker.turn(chimmy.mainDeck);
+	cout << "--------------------\n";
+
+	cout << "*** River ***\n";
+	poker.turnRiver(chimmy.mainDeck);
+	cout << "\n";
+
+
 
 	//system("pause");
 
