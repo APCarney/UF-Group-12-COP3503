@@ -1,0 +1,344 @@
+// pokerProject.cpp : Defines the entry point for the console application.
+//
+
+#include "stdio.h"
+//Poker Program
+//COP3503 Spring 2017
+
+#include <iostream>
+#include <ostream>
+#include <string>
+#include <chrono>
+#include<vector>
+
+
+//#include <unistd.h>
+
+using namespace std::chrono;
+using namespace std;
+
+class Card {
+public:
+    int rank; //13 ranks 1-13
+    string suit; //4 suits, 1-4
+    
+    
+};
+
+class Deck {
+public:
+    
+    void shuffle();
+    vector<Card> someshit();
+    vector<Card> mainDeck;
+    vector<Card> tableCardSet;
+    vector<Card> userHand;
+    vector<Card> dealerHand;
+    
+private:
+    
+};
+
+class Player {
+public:
+    string name;
+    int money;
+private:
+    
+    
+    
+};
+
+class Poker {
+public:
+    void game(string name);
+    void deal(vector<Card>);
+    void flop(vector<Card>);
+    void turn(vector<Card>);
+    void turnRiver(vector<Card>);
+    void bets();
+    //int handRanking();
+    int tieBreaker();
+    void winner();
+    void printTable();
+private:
+    int pot;
+};
+
+void Poker::game(string name) {
+    //while () {}
+    //deal(vector<Card> mainDeck);
+    //turnRiver();
+    //turnRiver();
+    
+    
+}
+
+void Poker::deal(vector<Card> mainDeck) {
+    
+    Deck dealDeck;
+    
+    dealDeck.userHand.push_back(mainDeck[mainDeck.size() - 1]);
+    dealDeck.userHand.push_back(mainDeck[mainDeck.size() - 2]);
+    
+    dealDeck.dealerHand.push_back(mainDeck[mainDeck.size() - 3]);
+    dealDeck.dealerHand.push_back(mainDeck[mainDeck.size() - 4]);
+    
+    
+    for (int i = 0; i < dealDeck.userHand.size(); i++) {
+        
+        cout << "\n";
+        
+        
+        cout << "| " <<dealDeck.userHand[i].rank << " " << dealDeck.userHand[i].suit << "  |  ";
+        
+        cout << dealDeck.dealerHand[i].rank << " " << dealDeck.dealerHand[i].suit << " |\n";
+        
+    }
+    
+    printTable();
+    bets();
+    
+}
+
+void Poker::flop(vector<Card> mainDeck) {
+    
+    Deck dealDeck;
+    
+    dealDeck.tableCardSet.push_back(mainDeck[47]);
+    
+    dealDeck.tableCardSet.push_back(mainDeck[46]);
+    
+    dealDeck.tableCardSet.push_back(mainDeck[45]);
+    
+    for (int i = 0; i < dealDeck.tableCardSet.size(); i++) {
+        
+        cout << "\n";
+        
+        cout << dealDeck.tableCardSet[i].rank << " " << dealDeck.tableCardSet[i].suit << "\n";
+        
+    }
+    
+}
+
+void Poker::turn(vector<Card> mainDeck) {
+    
+    Deck dealDeck;
+    
+    dealDeck.tableCardSet.push_back(mainDeck[44]);
+    
+    for (int i = 0; i < dealDeck.tableCardSet.size(); i++) {
+        
+        cout << "\n";
+        
+        cout << dealDeck.tableCardSet[i].rank << " " << dealDeck.tableCardSet[i].suit << "\n";
+        
+    }
+    
+}
+
+void Poker::turnRiver(vector<Card> mainDeck) {
+    
+    Deck dealDeck;
+    
+    dealDeck.tableCardSet.push_back(mainDeck[43]);
+    
+    for (int i = 0; i < dealDeck.tableCardSet.size(); i++) {
+        
+        cout << "\n";
+        
+        cout << dealDeck.tableCardSet[i].rank << " " << dealDeck.tableCardSet[i].suit << "\n";
+        
+    }
+    
+    printTable();
+    bets();
+}
+
+void Poker::bets() {
+    //Initializations
+    string decision;
+    int dealerBet = 0;
+    int playerBet = 0;
+    
+    //Random amount of checks and bets
+    int ran = rand() % 1000;
+    
+    //Testing
+    cout << ran;
+    //End Testing
+    
+    //Checks if divisible by 5
+    int ran2 = ran % 5;
+    if(ran2 % 5 == 0){
+        dealerBet = 0;
+    }
+    //Bets that amount if not divisible by 5
+    else{
+        dealerBet = ran;
+    }
+    if(dealerBet == 0){
+        cout << "\nThe dealer has checked.\n";
+        while(true){
+            cout << "Enter b for bet, c for check, f for fold.\n";
+            cin >> decision;
+            if(decision == "c"){
+                break;
+            }
+            else if(decision == "f"){
+                break;
+            }
+            else if(decision == "b"){
+                int x;
+                cout << "How much would you like to bet?\n";
+                cin >> x;
+                break;
+            }
+            else{
+                cout << "Invalid input. Please try again.\n";
+            }
+        }
+    }
+    else{
+        cout << "The dealer has bet " << ran << ".\n";
+        while(true){
+            cout << "Enter r for raise, c for call, f for fold.\n";
+            cin >> decision;
+            if(decision == "c"){
+                break;
+            }
+            else if(decision == "f"){
+                break;
+            }
+            else if(decision == "r"){
+                int x;
+                while(true){
+                    cout << "How much would you like to bet?\n";
+                    cin >> x;
+                    if(x > ran){
+                        break;
+                    }
+                    else{
+                        cout << "A raise must be higher than the dealer's bet. Please try again.\n";
+                    }
+                }
+                break;
+            }
+            else{
+                cout << "Invalid input. Please try again.\n";
+            }
+        }
+    }
+}
+
+//Assuming objects are (#, suit) and # goes from 0 (Ace) to 13 (King), and Suit goes from 1 to 4.
+//	int Poker::handRanking(/*Array Length 7*/) {
+//
+//for (int i = 0; i < array.length; i++) {
+
+//}
+//tiebreaker();
+//winner();
+//}
+
+int Poker::tieBreaker() {
+    
+    return 1;
+}
+
+void Poker::winner() {
+    
+}
+
+void Poker::printTable() {
+    
+}
+
+void Deck::shuffle() {
+    srand (time(NULL));
+    for (int i = 0; i<500; i++) {
+        int x = rand() % 52;
+        int y = rand() % 52;
+        Card tempCard = mainDeck[y];
+        mainDeck[y] = mainDeck[x];
+        mainDeck[x] = tempCard;
+    }
+    
+}
+vector<Card> Deck::someshit() {
+    string suitNames[4] = { "Spade", "Club", "Diamond", "Heart" };
+    Poker poke;
+    
+    for (int i = 0; i < 4; i++) {
+        for (int j = 1; j < 14; j++) {
+            Card x;
+            x.suit = suitNames[i];
+            x.rank = j;
+            mainDeck.push_back(x);
+        }
+    }
+    for (int p = 0; p < mainDeck.size(); p++) {
+        cout << "|" << mainDeck[p].rank << "," << mainDeck[p].suit << "| ";
+        if (p == 9 || p == 18 || p == 27 || p == 36 || p == 45) {
+            cout << "\n";
+        }
+    }
+    
+    return mainDeck;
+}
+
+int main() {
+    Player user;
+    user.money = 10, 000;
+    Player Jarvis;
+    Jarvis.name = "Jarvis";
+    Jarvis.money = 10, 000;
+    Poker poker;
+    string name;
+    Deck chimmy;
+    cout << "Please type your name: ";
+    cin >> user.name;
+    cout << "Welcome " << user.name << ", good luck on the poker game!\n\n";
+    //	usleep(1000000);
+    //poker.game(name);
+    chimmy.someshit();
+    chimmy.shuffle();
+    
+    cout << endl;
+    for (int p = 0; p < chimmy.mainDeck.size(); p++) {
+        cout << "|" << chimmy.mainDeck[p].rank << "," << chimmy.mainDeck[p].suit << "| ";
+        if (p == 9 || p == 18 || p == 27 || p == 36 || p == 45) {
+            cout << "\n";
+        }
+    }
+    
+    cout << "\n";
+    
+    cout << "\n";
+    cout << "*** Hand *** \n\n";
+    cout << "  Player  |  Dealer\n";
+    poker.deal(chimmy.mainDeck);
+    cout << "--------------------\n";
+    
+    cout << "*** Flop ***\n";
+    poker.flop(chimmy.mainDeck);
+    cout << "--------------------\n";
+    
+    cout << "*** Turn ***\n";
+    poker.turn(chimmy.mainDeck);
+    cout << "--------------------\n";
+    
+    cout << "*** River ***\n";
+    poker.turnRiver(chimmy.mainDeck);
+    cout << "\n";
+    
+    poker.bets();
+    poker.bets();
+    poker.bets();
+    
+    
+    
+    //system("pause");
+    
+    return 0;
+}
