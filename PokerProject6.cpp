@@ -429,6 +429,25 @@ int main() {
     cout << "\n";
     cout << "*** Hand *** \n\n";
     
+if (user.money > 9 && Jarvis.money > 9) {
+	user.money = user.money - 10;
+	Jarvis.money = Jarvis.money - 10;
+	
+	cout << user.name << " and " << Jarvis.name << " each bet 10 for ante \n";
+														}
+	else if(user.money<9 && Jarvis.money >9) {
+		
+		Jarvis.money = Jarvis.money - 10;
+		cout << user.name <<" bet "<< user.money<<"for ante" <<  " and " << Jarvis.name << " bet 10 for ante\n";
+		user.money = 0;
+	}
+	else if (user.money>9 && Jarvis.money <9) {
+
+		user.money = user.money - 10;
+		cout << Jarvis.name << " bet " << Jarvis.money << "for ante" << " and " << user.name << " bet 10 for ante\n";
+		user.money = 0;
+	}
+
     deal(Jarvis, user);
     
     cout << "*** Flop ***\n";
