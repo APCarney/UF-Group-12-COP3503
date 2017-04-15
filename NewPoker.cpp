@@ -223,7 +223,7 @@ void bets() {
                 while(true){
                     cout << "How much would you like to bet?\n";
                     cin >> x;
-                    if(isParam(x) == 0){
+                    if(x == "a"){
                         //Typecast from string to int
                         break;
                     }
@@ -254,8 +254,8 @@ void bets() {
                 while(true){
                     cout << "How much would you like to bet?\n";
                     cin >> x;
-                    if(isParam(x) == 0){
-                        if(x > ran){
+                    if(x == "a"){
+                        if(x == "ran"){
                             break;
                         }
                         else{
@@ -275,12 +275,12 @@ void bets() {
     }
 }
 
-bool isParam(string line)
-{
-    char* p;
-    strtol(line.c_str(), &p, 10);
-    return *p == 0;
-}
+/*bool isParam(string line)
+ {
+ char* p;
+ strtol(line.c_str(), &p, 10);
+ return *p == 0;
+ }*/
 
 //Assuming objects are (#, suit) and # goes from 0 (Ace) to 13 (King), and Suit goes from 1 to 4.
 //	int Poker::handRanking(/*Array Length 7*/) {
@@ -355,6 +355,7 @@ void printTable() {
     
 }
 void shuffle() {
+    srand (time(NULL));
     for (int i = 0; i<500; i++) {
         int x = rand() % 52;
         int y = rand() % 52;
