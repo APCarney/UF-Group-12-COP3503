@@ -378,7 +378,7 @@ bool intChecker(string g) {
     return v;
 }
 
-void bets(Player Dealer, Player User) {
+int bets(Player Dealer, Player User) {
     //Initializations
     string decision;
     int dealerBet = 0;
@@ -403,25 +403,42 @@ void bets(Player Dealer, Player User) {
             cin >> decision;
             if (decision == "c") {
                 cout << "You have checked.\n";
-                break;
+                return 1;
             }
             else if (decision == "f") {
                 cout << "You have folded.\n";
-                break;
+                Dealer.money += pot;
+                pot = 0;
+                return 0;
             }
             else if (decision == "b") {
                 string x;
+                int value;
                 while (true) {
                     cout << "How much would you like to bet?\n";
                     cin >> x;
                     if (intChecker(x) == 1) {
-                        int value = atoi(x.c_str());
-                        cout << value;
+                        value = atoi(x.c_str());
+                        User.money -= value;
+                        pot += value;
                         break;
                     }
                     else {
                         cout << "A bet must be a positive number. Please try again.\n";
                     }
+                }
+                int z = rand() % 100;
+                if(z % 5 == 0){
+                    cout << "The dealer has folded.\n";
+                    User.money += pot;
+                    pot = 0;
+                    return 0;
+                }
+                else{
+                    cout << "The dealer has called.\n";
+                    Dealer.money -= value;
+                    pot += value;
+                    return 1;
                 }
                 break;
             }
@@ -439,24 +456,25 @@ void bets(Player Dealer, Player User) {
             cin >> decision;
             if (decision == "c") {
                 cout << "You have called the dealer's bet of " << ran << ".\n";
-                User.money -= ran;
-                pot += ran;
+                return 1;
                 break;
             }
             else if (decision == "f") {
                 cout << "You have folded.\n";
-                break;
+                Dealer.money += pot;
+                pot = 0;
+                return 0;
             }
             else if (decision == "r") {
                 string x;
+                int value;
                 while (true) {
                     cout << "How much would you like to bet?\n";
                     cin >> x;
                     if (intChecker(x) == 1) {
-                        int value = atoi(x.c_str());
-                        cout << value;
+                        value = atoi(x.c_str());
                         if (value > ran) {
-                            cout << "You have raised the dealer by betting " << x << ".\n.";
+                            cout << "You have raised the dealer by betting " << x << ".\n";
                             break;
                         }
                         else {
@@ -466,6 +484,19 @@ void bets(Player Dealer, Player User) {
                     else {
                         cout << "A raise must be a positive number. Please try again.\n";
                     }
+                }
+                int z = rand() % 100;
+                if(z % 5 == 0){
+                    cout << "The dealer has folded.\n";
+                    User.money += pot;
+                    pot = 0;
+                    return 0;
+                }
+                else{
+                    cout << "The dealer has called.\n";
+                    Dealer.money -= value;
+                    pot += value;
+                    return 1;
                 }
                 break;
             }
