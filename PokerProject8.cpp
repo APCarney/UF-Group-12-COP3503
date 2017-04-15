@@ -318,52 +318,107 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 
 	int userCount = 0;
 	int dealerCount = 0;
-	vector<Card> userHandRank;
+	
 	vector<int> userRank;
+	vector<string> userSuit;
+	vector<string> dealerSuit;
+	vector<int> dealerRank;
+	vector<int> userPair;
+	vector<int> userThreeKind;
+	vector<int> dealerPair;
+	vector<int> dealerThreeKind;
+	
 
 	for (int i = 0; i < userHand.size(); i++) {
 
 		userRank.push_back(userHand[i].rank);
-		//cout << rankVect[i];
+		
 	}
 
-	// singles out duplicates
+	for (int i = 0; i < dealerHand.size(); i++) {
 
+		dealerRank.push_back(dealerHand[i].rank);
 
-	/*map<string, int> m;		// singles out duplicates
-	for (auto & i : v)
-	m[i]++;
-	v.clear();
-	for (auto & i : m)
-
-	v.push_back(i.first);
-
-	for (size_t j = 0; j < v.size(); j++) {
-	if (j == v.size()) {
-
-	j = 0;
 	}
-
-	cout << v[j] << " ";	//prints new vector without duplicates
-	}*/
 
 	map<int, int> m;
 	for (auto & i : userRank)
 		m[i]++;
 	userRank.clear();
+	
 	for (auto & i : m)
-
-		userRank.push_back(i.first);
-
-	for (size_t j = 0; j < userRank.size(); j++) {
-		if (j == userRank.size()) {
-
-			j = 0;
+		if (i.second == 3) {
+			userThreeKind.push_back(i.first);
+		}
+	
+	for (auto & i : m)
+		if (i.second == 2) {
+			userPair.push_back(i.first);
 		}
 
-		cout << userRank[j] << " " << "\n";
+	//***********************************************************
+	
+	map<int, int> m2;
+	for (auto & i : dealerRank)
+		m2[i]++;
+	dealerRank.clear();
+
+	for (auto & i : m2)
+		if (i.second == 3) {
+			dealerThreeKind.push_back(i.first);
+		}
+
+	for (auto & i : m2)
+		if (i.second == 2) {
+			dealerPair.push_back(i.first);
+		}
+	
+	
+	
+	if (!userPair.empty()) {
+		cout << "Player has the following pairs: ";
+
+		for (int i = 0; i < userPair.size(); i++) {
+			cout << userPair[i] << " ";
+		}
+		cout << "\n";
 	}
 
+	if (!userThreeKind.empty()) {
+		cout << "Player has the following three of a kind: ";
+
+		for (int i = 0; i < userThreeKind.size(); i++) {
+			cout << userThreeKind[i] << " ";
+		}
+		cout << "\n\n";
+	}
+
+	
+
+	if (!dealerPair.empty()) {
+		cout << "Dealer has the following pairs: ";
+
+		for (int i = 0; i < dealerPair.size(); i++) {
+			cout << dealerPair[i] << " ";
+		}
+
+		cout << "\n";
+	}
+
+	
+
+	if (!dealerThreeKind.empty()) {
+
+		cout << "Dealer has the following three of a kind: ";
+
+		for (int i = 0; i < dealerThreeKind.size(); i++) {
+			cout << dealerThreeKind[i] << " ";
+		}
+
+		cout << "\n";
+	}
+
+	
 
 }
 
