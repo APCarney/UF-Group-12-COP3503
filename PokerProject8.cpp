@@ -50,7 +50,7 @@ vector<Card> dealerHand;
 int pot;
 void game(string name);
 void deal();
-void flop(Player dealer , Player user);
+void flop(Player Dealer , Player User);
 void turn(vector<Card>, Player Dealer, Player User);
 void turnRiver(vector<Card>, Player Dealer, Player User);
 void bets(Player x, Player b);
@@ -124,7 +124,7 @@ void deal(Player Dealer, Player User) {
 
 }
 
-void flop(Player dealer, Player user) {
+void flop(Player Dealer, Player User) {
 
 
 	userHand.push_back(mainDeck[47]);
@@ -146,7 +146,7 @@ void flop(Player dealer, Player user) {
 	cout << dealerHand[3].rank << " " << dealerHand[3].suit << "\n\n";
 
 	cout << dealerHand[4].rank << " " << dealerHand[4].suit << "\n";
-	bets(dealer, user);
+	bets(Dealer, User);
 }
 
 void turn(vector<Card> mainDeck, Player Dealer, Player User) {
