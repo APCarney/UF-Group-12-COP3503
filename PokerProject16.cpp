@@ -690,7 +690,7 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 		}
 
 		//***********************************************
-		if (userRankValue == 9) {
+		if (userRankValue == 8) {
 			if (highDealerCard > highUserCard) {
 				winner = 1;
 			}
@@ -698,7 +698,7 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 				winner = 0;
 			}
 		}
-		if (userRankValue == 8) {
+		if (userRankValue == 7) {
 			if ((userHand[0].rank == userHand[1].rank)) {
 				if (highDealerCard > highUserCard) {
 					winner = 1;
@@ -716,7 +716,7 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 			}
 
 		}
-		if (userRankValue == 7) {
+		if (userRankValue == 6) {
 			if (userThreeKind[0] = dealerThreeKind[0]) {
 				//if ()
 				//}
@@ -730,15 +730,6 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 			}
 		}
 			//for 6, flush, if the hand ranks equal each other here, then the flush is of a different 
-			if (userRankValue == 6) {
-				if (highDealerCard > highUserCard) {
-					winner = 1;
-				}
-				else {
-					winner = 0;
-				}
-			}
-			//for 5, straight, the highest card in the last node of the straight is whats relevant, thats not necessarily a card in somebodys 2 cards. 
 			if (userRankValue == 5) {
 				if (highDealerCard > highUserCard) {
 					winner = 1;
@@ -747,8 +738,7 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 					winner = 0;
 				}
 			}
-
-
+			//for 5, straight, the highest card in the last node of the straight is whats relevant, thats not necessarily a card in somebodys 2 cards. 
 			if (userRankValue == 4) {
 				if (highDealerCard > highUserCard) {
 					winner = 1;
@@ -757,6 +747,7 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 					winner = 0;
 				}
 			}
+
 
 			if (userRankValue == 3) {
 				if (highDealerCard > highUserCard) {
@@ -785,6 +776,22 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 				}
 			}
 
+			if (userRankValue == 0) {
+				if (dealerPair[0] > userPair[0]) {
+					winner = 1;
+				}
+				if (userPair[0] > dealerPair[0]) {
+					winner = 0;
+				}
+	if (dealerPair[0]==userPair[0]){
+				if (highDealerCard > highUserCard) {
+					winner = 1;
+				}
+				else {
+					winner = 0;
+				}
+			}
+}
 			cout << "\nhighest Dealer card:" << highDealerCard;
 			cout << "\nhighest User card:" << highUserCard;
 		
@@ -948,7 +955,9 @@ int main() {
 		cout << "*** rank  ***\n";
 		winner(userHand, dealerHand);
 
-		system("pause");
+		
 	}
+system("pause");
+
 	return 0;
 }
