@@ -344,112 +344,159 @@ int tieBreaker() {
 }
 
 void winner(vector<Card> userHand, vector<Card> dealerHand) {
-    
-    
-    int userCount = 0;
-    int dealerCount = 0;
-    
-    vector<int> userRank;
-    vector<string> userSuit;
-    vector<string> dealerSuit;
-    vector<int> dealerRank;
-    vector<int> userPair;
-    vector<int> userThreeKind;
-    vector<int> dealerPair;
-    vector<int> dealerThreeKind;
-    
-    
-    for (int i = 0; i < userHand.size(); i++) {
-        
-        userRank.push_back(userHand[i].rank);
-        
-    }
-    
-    for (int i = 0; i < dealerHand.size(); i++) {
-        
-        dealerRank.push_back(dealerHand[i].rank);
-        
-    }
-    
-    map<int, int> m;
-    for (auto & i : userRank)
-        m[i]++;
-    userRank.clear();
-    
-    for (auto & i : m)
-        if (i.second == 3) {
-            userThreeKind.push_back(i.first);
-        }
-    
-    for (auto & i : m)
-        if (i.second == 2) {
-            userPair.push_back(i.first);
-        }
-    
-    //***********************************************************
-    
-    map<int, int> m2;
-    for (auto & i : dealerRank)
-        m2[i]++;
-    dealerRank.clear();
-    
-    for (auto & i : m2)
-        if (i.second == 3) {
-            dealerThreeKind.push_back(i.first);
-        }
-    
-    for (auto & i : m2)
-        if (i.second == 2) {
-            dealerPair.push_back(i.first);
-        }
-    
-    
-    
-    if (!userPair.empty()) {
-        cout << "Player has the following pairs: ";
-        
-        for (int i = 0; i < userPair.size(); i++) {
-            cout << userPair[i] << " ";
-        }
-        cout << "\n";
-    }
-    
-    if (!userThreeKind.empty()) {
-        cout << "Player has the following three of a kind: ";
-        
-        for (int i = 0; i < userThreeKind.size(); i++) {
-            cout << userThreeKind[i] << " ";
-        }
-        cout << "\n\n";
-    }
-    
-    
-    
-    if (!dealerPair.empty()) {
-        cout << "Dealer has the following pairs: ";
-        
-        for (int i = 0; i < dealerPair.size(); i++) {
-            cout << dealerPair[i] << " ";
-        }
-        
-        cout << "\n";
-    }
-    
-    
-    
-    if (!dealerThreeKind.empty()) {
-        
-        cout << "Dealer has the following three of a kind: ";
-        
-        for (int i = 0; i < dealerThreeKind.size(); i++) {
-            cout << dealerThreeKind[i] << " ";
-        }
-        
-        cout << "\n";
-    }
-    
-    
-    
+
+
+	int userCount = 0;
+	int dealerCount = 0;
+	
+	vector<int> userRank;
+	vector<string> userSuit;
+	vector<string> dealerSuit;
+	vector<int> dealerRank;
+	vector<int> userPair;
+	vector<int> userThreeKind;
+	vector<int> dealerPair;
+	vector<int> dealerThreeKind;
+	bool userFlush = false;
+	bool dealerFlush = false;
+	
+
+	for (int i = 0; i < userHand.size(); i++) {
+
+		userRank.push_back(userHand[i].rank);
+		userSuit.push_back(userHand[i].suit);
+		
+	}
+
+	for (int i = 0; i < dealerHand.size(); i++) {
+
+		dealerRank.push_back(dealerHand[i].rank);
+		dealerSuit.push_back(dealerHand[i].suit);
+
+	}
+
+	map<int, int> m;
+	for (auto & i : userRank)
+		m[i]++;
+	userRank.clear();
+
+	for (auto & i : m)
+		if (i.second == 3) {
+			userThreeKind.push_back(i.first);
+		}
+
+	for (auto & i : m)
+		if (i.second == 2) {
+			userPair.push_back(i.first);
+		}
+
+	
+	//***********************************************************
+	
+	map<int, int> m2;
+	for (auto & i : dealerRank)
+		m2[i]++;
+	dealerRank.clear();
+
+	for (auto & i : m2)
+		if (i.second == 3) {
+			dealerThreeKind.push_back(i.first);
+		}
+
+	for (auto & i : m2)
+		if (i.second == 2) {
+			dealerPair.push_back(i.first);
+		}
+
+	//***********************************************
+
+	map<string, int> m3;
+	for (auto & i : userSuit)
+		m3[i]++;
+	userSuit.clear();
+
+	for (auto & i : m3) {
+
+		if (i.second == 5) {
+			userFlush = true;
+		}
+	}
+		
+	//****************************************************
+
+	map<string, int> m4;
+	for (auto & i : dealerSuit)
+		m4[i]++;
+	dealerSuit.clear();
+
+	for (auto & i : m4) {
+		
+		if (i.second == 5) {
+			dealerFlush = true;
+		}
+	}
+	
+	//************************************************
+
+	if (!userPair.empty()) {
+		cout << "Player has the following pairs: ";
+
+		for (int i = 0; i < userPair.size(); i++) {
+			cout << userPair[i] << " ";
+		}
+		cout << "\n";
+	}
+
+	if (!userThreeKind.empty()) {
+		cout << "Player has the following three of a kind: ";
+
+		for (int i = 0; i < userThreeKind.size(); i++) {
+			cout << userThreeKind[i] << " ";
+		}
+		cout << "\n\n";
+	}
+
+	
+
+	if (!dealerPair.empty()) {
+		cout << "Dealer has the following pairs: ";
+
+		for (int i = 0; i < dealerPair.size(); i++) {
+			cout << dealerPair[i] << " ";
+		}
+
+		cout << "\n";
+	}
+
+	
+
+	if (!dealerThreeKind.empty()) {
+
+		cout << "Dealer has the following three of a kind: ";
+
+		for (int i = 0; i < dealerThreeKind.size(); i++) {
+			cout << dealerThreeKind[i] << " ";
+		}
+
+		cout << "\n";
+	}
+
+	if (userFlush == true) {
+
+		cout << "Player has a flush";
+	}
+
+	if (dealerFlush == true) {
+
+		cout << "Dealer has a flush";
+	}
+
+
+
+	cout << "\n";
+
+	
+
 }
 
 void printTable() {
