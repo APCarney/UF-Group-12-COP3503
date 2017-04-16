@@ -242,10 +242,6 @@ int bets(Player Dealer, Player User) {
                     cout << "The dealer has folded.\n";
                     User.money += pot;
                     pot = 0;
-                    cout << User.money;
-                    cout << endl;
-                    cout << Dealer.money;
-                    cout << endl;
                     return 0;
                 }
                 else{
@@ -270,8 +266,9 @@ int bets(Player Dealer, Player User) {
             cin >> decision;
             if (decision == "c") {
                 cout << "You have called the dealer's bet of " << ran << ".\n";
+                User.money -= ran;
+                pot += ran;
                 return 1;
-                break;
             }
             else if (decision == "f") {
                 cout << "You have folded.\n";
@@ -289,6 +286,8 @@ int bets(Player Dealer, Player User) {
                         value = atoi(x.c_str());
                         if (value > ran) {
                             cout << "You have raised the dealer by betting " << x << ".\n";
+                            User.money -= value;
+                            pot += value;
                             break;
                         }
                         else {
@@ -308,7 +307,8 @@ int bets(Player Dealer, Player User) {
                 }
                 else{
                     cout << "The dealer has called.\n";
-                    Dealer.money -= value;
+                    int a = value - ran;
+                    Dealer.money -= a;
                     pot += value;
                     return 1;
                 }
