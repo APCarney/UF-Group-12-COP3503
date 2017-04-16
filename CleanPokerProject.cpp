@@ -480,50 +480,106 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
         dealerSuit.push_back(dealerHand[i].suit);
         
     }
-    /*vector<int>::iterator result = std::min_element(begin(dealerRank), end(dealerRank));
-     cout << "***************** min element at: \n" << distance(begin(dealerRank), result);*/
-    
-    /*map<int, int> s;
-     for (auto & i : userRank)
-     s[i]++;
-     userRank.clear();
-     for (auto & i : s)
-     userOrder.push_back(i.first);
-     cout << userOrder.size() << "\n";
-     for (int j = 0; j < userOrder.size(); j++) {
-     cout <<"--"<< userOrder[j] <<"--"<< "\n";
-     cout << " J1: " << j;
-     if (j == userOrder.size() -1) {
-     if ((userOrder[4] + 1) == userOrder[5]) {
-     straightCount++;
-     break;
-     }
-     break;
-     }
-     if ((userOrder[j] + 1) == userOrder[j + 1]) {
-     while (j != (userOrder.size() - 1) && ((userOrder[j] + 1) == userOrder[j + 1])) {
-     cout << "--" << userOrder[j] << "--" << "\n";
-     if (j == userOrder.size() - 1) {
-     if ((userOrder[4] + 1) == userOrder[5]) {
-     straightCount++;
-     cout << " **" << straightCount << "** ";
-     break;
-     }
-     break;
-     }
-     straightCount++;
-     j++;
-     cout << " J2: " << j;
-     cout << " **"<< straightCount << "** ";
-     if (straightCount == 5) {
-     break;
-     }
-     }
-     }
-     cout << " J3: " << j;
-     }*/
-    
-    //cout << *min_element(userRank[0], userRank[userRank.size()]);
+   map<int, int> s;
+	for (auto & i : userSRank)
+		s[i]++;
+	userSRank.clear();
+
+	for (auto & i : s)
+		userOrder.push_back(i.first);
+
+	int j = 0;
+	
+	for (j; j < userOrder.size(); ++j) {
+
+		if (j == userOrder.size() - 1) {
+
+			break;
+		}
+
+
+		if ((userOrder[j] + 1) == userOrder[j + 1]) {
+
+			while (j != (userOrder.size() - 1) && ((userOrder[j] + 1) == userOrder[j + 1])) {
+				
+				if (j == userOrder.size() - 1) {
+					
+					break;
+				}
+				
+				userStrtCount++;
+				j++;
+				
+				if (userStrtCount == 5) {
+					break;
+				}
+
+			}
+		}
+
+		
+	}
+
+	for (int x = userOrder.size() - 1; x > userOrder.size() - 2; --x) {
+
+		if (userOrder[x] == (userOrder[x-1] + 1)) {
+
+			userStrtCount++;
+			
+		}
+
+	}
+
+	//*************************************************************
+
+
+	map<int, int> s2;
+	for (auto & i : dealerSRank)
+		s2[i]++;
+	dealerSRank.clear();
+
+	for (auto & i : s2)
+		dealerOrder.push_back(i.first);
+
+
+	for (int j = 0; j < dealerOrder.size(); ++j) {
+
+		if (j == dealerOrder.size() - 1) {
+
+			break;
+		}
+
+		if ((dealerOrder[j] + 1) == dealerOrder[j + 1]) {
+
+			while (j != (dealerOrder.size() - 1) && ((dealerOrder[j] + 1) == userOrder[j + 1])) {
+
+				if (j == dealerOrder.size() - 1) {
+
+					break;
+				}
+
+				dealerStrtCount++;
+				j++;
+
+				if (dealerStrtCount == 5) {
+					break;
+				}
+
+
+			}
+		}
+
+	}
+
+	for (int x = dealerOrder.size() - 1; x > dealerOrder.size() - 2; --x) {
+
+		if (dealerOrder[x] == (dealerOrder[x - 1] + 1)) {
+
+			dealerStrtCount++;
+			
+		}
+
+	}
     
     map<int, int> m;
     for (auto & i : userRank)
@@ -660,6 +716,26 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
         
         cout << "\n";
     }
+    
+    if (userStrtCount == 5) {
+
+			userRankValue = 4;
+			cout << "Player has a straight\n";
+		}
+
+		if (dealerStrtCount == 5) {
+
+			userRankValue = 4;
+			cout << "Dealer has a straight\n";
+		}
+
+
+		if (userFlush == true) {
+
+			userRankValue = 5;
+			cout << "Player has a flush\n";
+		}
+
     
     
     
