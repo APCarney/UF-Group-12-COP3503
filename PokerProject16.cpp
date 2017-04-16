@@ -50,6 +50,8 @@ vector<Card> dealerHand;
 int userMoney = 10000;
 int dealerMoney = 10000;
 int pot;
+int highUserCard;
+int highDealerCard;
 void game(string name);
 //int deal();
 int flop(Player Dealer, Player User);
@@ -622,6 +624,7 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 		cout << "P size: " << userPair.size() << "\n";
 		cout << "\nTal where you at, you need to settle this sheit!";
 		int x=tieBreaker(userRankValue, dealerPair, userPair, dealerThreeKind, userThreeKind);
+		
 		if (x == 0) {
 			cout << "\nPlayer has the winning hand!" << "\n";
 			userMoney += pot;
@@ -660,8 +663,7 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 
 
 		int winner = 2;
-		int highUserCard;
-		int highDealerCard;
+		
 
 		//if(intHandrank==dealerhandRank){}
 		int maxRank = 0;
@@ -677,14 +679,14 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 			 highUserCard = userHand[0].rank;
 		}
 		else {
-			highUserCard = userHand[1].rank;
+			 highUserCard = userHand[1].rank;
 		}
 
 		if (dealerHand[0].rank > dealerHand[1].rank) {
 			 highDealerCard = dealerHand[0].rank;
 		}
 		else {
-			highDealerCard = dealerHand[1].rank;
+			 highDealerCard = dealerHand[1].rank;
 		}
 
 		//***********************************************
@@ -783,6 +785,8 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 				}
 			}
 
+			cout << "\nhighest Dealer card:" << highDealerCard;
+			cout << "\nhighest User card:" << highUserCard;
 		
 			return winner;
 		}
