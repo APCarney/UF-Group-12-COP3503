@@ -448,39 +448,51 @@ int bets(Player Dealer, Player User) {
 }
 
 void winner(vector<Card> userHand, vector<Card> dealerHand) {
-    
-    
-    
-    int straightCount = 0;
-    vector<int> userOrder;
-    vector<int> userRank;
-    vector<string> userSuit;
-    vector<string> dealerSuit;
-    vector<int> dealerRank;
-    vector<int> userPair;
-    vector<int> userThreeKind;
-    vector<int> userFourKind;
-    vector<int> dealerPair;
-    vector<int> dealerThreeKind;
-    vector<int> dealerFourKind;
-    bool userFlush = false;
-    bool dealerFlush = false;
-    
-    
-    for (int i = 0; i < userHand.size(); i++) {
-        
-        userRank.push_back(userHand[i].rank);
-        userSuit.push_back(userHand[i].suit);
-        
-    }
-    
-    for (int i = 0; i < dealerHand.size(); i++) {
-        
-        dealerRank.push_back(dealerHand[i].rank);
-        dealerSuit.push_back(dealerHand[i].suit);
-        
-    }
-   map<int, int> s;
+
+
+	int userRankValue = 0;
+	int dealerRankValue = 0;
+	int userStrtCount = 0;
+	int dealerStrtCount = 0;
+	vector<int> userOrder;
+	vector<int> dealerOrder;
+	vector<int> userRank;
+	vector<int> userSRank;
+	vector<int> dealerSRank;
+	vector<string> userSuit;
+	vector<string> dealerSuit;
+	vector<int> dealerRank;
+	vector<int> userPair;
+	vector<int> userThreeKind;
+	vector<int> userFourKind;
+	vector<int> dealerPair;
+	vector<int> dealerThreeKind;
+	vector<int> dealerFourKind;
+	bool userFlush = false;
+	bool dealerFlush = false;
+	
+
+	for (int i = 0; i < userHand.size(); i++) {
+		
+		userSRank.push_back(userHand[i].rank);
+		dealerSRank.push_back(userHand[i].rank);
+		userRank.push_back(userHand[i].rank);
+		userSuit.push_back(userHand[i].suit);
+
+	}
+
+	for (int i = 0; i < dealerHand.size(); i++) {
+
+		dealerRank.push_back(dealerHand[i].rank);
+		dealerSuit.push_back(dealerHand[i].suit);
+
+	}
+
+	/*vector<int>::iterator result = std::min_element(begin(dealerRank), end(dealerRank));
+	cout << "***************** min element at: \n" << distance(begin(dealerRank), result);*/
+
+	
+	map<int, int> s;
 	for (auto & i : userSRank)
 		s[i]++;
 	userSRank.clear();
@@ -580,144 +592,147 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 		}
 
 	}
-    
-    map<int, int> m;
-    for (auto & i : userRank)
-        m[i]++;
-    userRank.clear();
-    
-    for (auto & i : m)
-        if (i.second == 4) {
-            userFourKind.push_back(i.first);
-        }
-    
-    for (auto & i : m)
-        if (i.second == 3) {
-            userThreeKind.push_back(i.first);
-        }
-    
-    for (auto & i : m)
-        if (i.second == 2) {
-            userPair.push_back(i.first);
-        }
-    
-    
-    //***********************************************************
-    
-    map<int, int> m2;
-    for (auto & i : dealerRank)
-        m2[i]++;
-    dealerRank.clear();
-    
-    for (auto & i : m2)
-        if (i.second == 4) {
-            dealerFourKind.push_back(i.first);
-        }
-    
-    
-    for (auto & i : m2)
-        if (i.second == 3) {
-            dealerThreeKind.push_back(i.first);
-        }
-    
-    for (auto & i : m2)
-        if (i.second == 2) {
-            dealerPair.push_back(i.first);
-        }
-    
-    //***********************************************
-    
-    map<string, int> m3;
-    for (auto & i : userSuit)
-        m3[i]++;
-    userSuit.clear();
-    
-    for (auto & i : m3) {
-        
-        if (i.second == 5) {
-            userFlush = true;
-        }
-    }
-    
-    //****************************************************
-    
-    map<string, int> m4;
-    for (auto & i : dealerSuit)
-        m4[i]++;
-    dealerSuit.clear();
-    
-    for (auto & i : m4) {
-        
-        if (i.second == 5) {
-            dealerFlush = true;
-        }
-    }
-    
-    //************************************************
-    
-    
-    if (!userPair.empty()) {
-        cout << "Player has the following pairs: ";
-        
-        if (userPair.size() == 1) {
-            
-            userRankValue = 1;
-        }
-        
-        if (userPair.size() == 2) {
-            
-            userRankValue = 2;
-        }
-        
-        for (int i = 0; i < userPair.size(); i++) {
-            cout << userPair[i] << " ";
-        }
-        
-        
-        cout << "\n";
-    }
-    
-    
-    if (!dealerPair.empty()) {
-        cout << "Dealer has the following pairs: ";
-        
-        dealerRankValue = dealerPair.size();
-        
-        for (int i = 0; i < dealerPair.size(); i++) {
-            cout << dealerPair[i] << " ";
-        }
-        
-        
-        cout << "\n";
-    }
-    
-    
-    if (!userThreeKind.empty()) {
-        cout << "Player has the following three of a kind: ";
-        
-        for (int i = 0; i < userThreeKind.size(); i++) {
-            cout << userThreeKind[i] << " ";
-        }
-        userRankValue = 3;
-        
-        cout << "\n\n";
-    }
-    
-    
-    if (!dealerThreeKind.empty()) {
-        
-        cout << "Dealer has the following three of a kind: ";
-        
-        for (int i = 0; i < dealerThreeKind.size(); i++) {
-            cout << dealerThreeKind[i] << " ";
-        }
-        
-        dealerRankValue = 3;
-        
-        cout << "\n";
-    }
-    
-    if (userStrtCount == 5) {
+
+	
+	map<int, int> m;
+	for (auto & i : userRank)
+		m[i]++;
+	userRank.clear();
+
+	for (auto & i : m)
+		if (i.second == 4) {
+			userFourKind.push_back(i.first);
+		}
+
+	for (auto & i : m)
+		if (i.second == 3) {
+			userThreeKind.push_back(i.first);
+		}
+
+	for (auto & i : m)
+		if (i.second == 2) {
+			userPair.push_back(i.first);
+		}
+
+
+	//***********************************************************
+
+	map<int, int> m2;
+	for (auto & i : dealerRank)
+		m2[i]++;
+	dealerRank.clear();
+
+	for (auto & i : m2)
+		if (i.second == 4) {
+			dealerFourKind.push_back(i.first);
+		}
+
+
+	for (auto & i : m2)
+		if (i.second == 3) {
+			dealerThreeKind.push_back(i.first);
+		}
+
+	for (auto & i : m2)
+		if (i.second == 2) {
+			dealerPair.push_back(i.first);
+		}
+
+	//***********************************************
+
+	map<string, int> m3;
+	for (auto & i : userSuit)
+		m3[i]++;
+	userSuit.clear();
+
+	for (auto & i : m3) {
+
+		if (i.second == 5) {
+			cout << i.first;
+			userFlush = true;
+		}
+	}
+
+	//****************************************************
+
+	map<string, int> m4;
+	for (auto & i : dealerSuit)
+		m4[i]++;
+	dealerSuit.clear();
+
+	for (auto & i : m4) {
+
+		if (i.second == 5) {
+			dealerFlush = true;
+		}
+	}
+
+	//************************************************
+
+	
+		if (!userPair.empty()) {
+			cout << "Player has the following pairs: ";
+
+			if (userPair.size() == 1) {
+
+				userRankValue = 1;
+			}
+
+			if (userPair.size() == 2) {
+
+				userRankValue = 2;
+			}
+
+			for (int i = 0; i < userPair.size(); i++) {
+				cout << userPair[i] << " ";
+			}
+
+			userPair.clear();
+			cout << "\n";
+		}
+
+
+		if (!dealerPair.empty()) {
+			cout << "Dealer has the following pairs: ";
+
+			dealerRankValue = dealerPair.size();
+
+			for (int i = 0; i < dealerPair.size(); i++) {
+				cout << dealerPair[i] << " ";
+			}
+
+			dealerPair.clear();
+			cout << "\n";
+		}
+
+
+		if (!userThreeKind.empty()) {
+			cout << "Player has the following three of a kind: ";
+
+			for (int i = 0; i < userThreeKind.size(); i++) {
+				cout << userThreeKind[i] << " ";
+			}
+			userRankValue = 3;
+			userThreeKind.clear();
+			cout << "\n\n";
+		}
+
+
+		if (!dealerThreeKind.empty()) {
+
+			cout << "Dealer has the following three of a kind: ";
+
+			for (int i = 0; i < dealerThreeKind.size(); i++) {
+				cout << dealerThreeKind[i] << " ";
+			}
+
+			dealerRankValue = 3;
+			dealerThreeKind.clear();
+			cout << "\n";
+		}
+
+		
+		if (userStrtCount == 5) {
 
 			userRankValue = 4;
 			cout << "Player has a straight\n";
@@ -736,103 +751,96 @@ void winner(vector<Card> userHand, vector<Card> dealerHand) {
 			cout << "Player has a flush\n";
 		}
 
-    
-    
-    
-    if (userFlush == true) {
-        
-        userRankValue = 5;
-        cout << "Player has a flush\n";
-    }
-    
-    if (dealerFlush == true) {
-        
-        dealerRankValue = 5;
-        cout << "Dealer has a flush\n";
-    }
-    
-    
-    if (!userPair.empty() && !userThreeKind.empty()) {
-        
-        userRankValue = 6;
-        cout << "Player has a full house\n";
-        
-        //userPair.clear();
-        //userThreeKind.clear();
-    }
-    
-    if (!dealerPair.empty() && !dealerThreeKind.empty()) {
-        
-        dealerRankValue = 6;
-        cout << "Dealer has a full house\n";
-        
-        //dealerPair.clear();
-        //dealerThreeKind.clear();
-    }
-    
-    if (!userFourKind.empty()) {
-        cout << "Player has the following four of a kind: ";
-        
-        for (int i = 0; i < userFourKind.size(); i++) {
-            cout << userFourKind[i] << " ";
-        }
-        userRankValue = 7;
-        
-        userFourKind.clear();
-        
-        cout << "\n\n";
-    }
-    
-    
-    if (!dealerFourKind.empty()) {
-        
-        cout << "Dealer has the following four of a kind: ";
-        
-        for (int i = 0; i < dealerFourKind.size(); i++) {
-            cout << dealerFourKind[i] << " ";
-        }
-        
-        dealerRankValue = 7;
-        
-        dealerFourKind.clear();
-        
-        cout << "\n";
-    }
-    
-    
-    
-    if (userRankValue > dealerRankValue) {
-        
-        cout << "D val: " << dealerRankValue << "\n";
-        cout << "P val: " << userRankValue << "\n";
-        
-        cout << "D size: " << dealerPair.size() << "\n";
-        cout << "P size: " << userPair.size() << "\n";
-        cout << "\nPlayer has the winning hand!" << "\n";
-        userMoney += pot;
-        pot = 0;
-    }
-    
-    if (userRankValue < dealerRankValue) {
-        
-        cout << "D val: " << dealerRankValue << "\n";
-        cout << "P val: " << userRankValue << "\n";
-        
-        cout << "D size: " << dealerPair.size() << "\n";
-        cout << "P size: " << userPair.size() << "\n";
-        cout << "\nDealer has the winning hand!";
-        dealerMoney += pot;
-        pot = 0;
-    }
-    
-    if (userRankValue == dealerRankValue) {
-        
-        cout << "D val: " << dealerRankValue << "\n";
-        cout << "P val: " << userRankValue << "\n";
-        
-        cout << "D size: " << dealerPair.size() << "\n";
-        cout << "P size: " << userPair.size() << "\n";
-        cout << "\nTal where you at, you need to settle this sheit!";
+		if (dealerFlush == true) {
+
+			dealerRankValue = 5;
+			cout << "Dealer has a flush\n";
+		}
+
+
+		if (!userPair.empty() && !userThreeKind.empty()) {
+
+			userRankValue = 6;
+			cout << "Player has a full house\n";
+
+			userPair.clear();
+			userThreeKind.clear();
+		}
+
+		if (!dealerPair.empty() && !dealerThreeKind.empty()) {
+
+			dealerRankValue = 6;
+			cout << "Dealer has a full house\n";
+
+			dealerPair.clear();
+			dealerThreeKind.clear();
+		}
+
+		if (!userFourKind.empty()) {
+		cout << "Player has the following four of a kind: ";
+
+		for (int i = 0; i < userFourKind.size(); i++) {
+			cout << userFourKind[i] << " ";
+		}
+		userRankValue = 7;
+
+		userFourKind.clear();
+
+		cout << "\n\n";
+	}
+
+
+	if (!dealerFourKind.empty()) {
+
+		cout << "Dealer has the following four of a kind: ";
+
+		for (int i = 0; i < dealerFourKind.size(); i++) {
+			cout << dealerFourKind[i] << " ";
+		}
+
+		dealerRankValue = 7;
+
+		dealerFourKind.clear();
+
+		cout << "\n";
+	}
+
+		
+
+	if (userRankValue > dealerRankValue) {
+		
+		cout << "D val: " << dealerRankValue << "\n";
+		cout << "P val: " << userRankValue << "\n";
+		
+		cout << "D size: " << dealerPair.size() << "\n";
+		cout << "P size: " << userPair.size() << "\n";
+		cout << "\nPlayer has the winning hand!" << "\n";
+	}
+
+	if (userRankValue < dealerRankValue) {
+
+		cout << "D val: " << dealerRankValue << "\n";
+		cout << "P val: " << userRankValue << "\n";
+
+		cout << "D size: " << dealerPair.size() << "\n";
+		cout << "P size: " << userPair.size() << "\n";
+		cout << "\nDealer has the winning hand!";
+	}
+
+	if (userRankValue == dealerRankValue) {
+
+		cout << "D val: " << dealerRankValue << "\n";
+		cout << "P val: " << userRankValue << "\n";
+		
+		cout << "D size: " << dealerPair.size() << "\n";
+		cout << "P size: " << userPair.size() << "\n";
+		cout << "\nTal where you at, you need to settle this sheit!";
+		//tieBreaker(/*Pass either integer or hand vectors*/);
+	}
+
+	cout << "\n";
+
+
         int x = tieBreaker(userRankValue, dealerPair, userPair, dealerThreeKind, userThreeKind);
         
         if (x == 0) {
