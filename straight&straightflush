@@ -1,0 +1,113 @@
+
+int j = 0;
+
+	for (j; j < userOrder.size(); ++j) {
+		
+		
+		if (j == userOrder.size() - 1) {
+
+			break;
+		}
+
+		userStrtCount = 0;
+
+		if ((userOrder[j] + 1) == userOrder[j + 1]) {
+
+			while ((j == userOrder.size() - 1) || ((userOrder[j] + 1) == userOrder[j + 1])) {
+
+				if (j == userOrder.size() - 1) {
+
+					break;
+				}
+
+				userStrtCount++;
+				j++;
+				
+				if (userStrtCount >= 5) {
+					break;
+				}
+
+			}
+		}
+
+	}
+
+	if(j < userOrder.size() -1 ){
+		if (userOrder[j] + 1 == (userOrder[j + 1])) {
+
+			userStrtCount++;
+			
+		}
+		}
+
+//********************************************************************************************
+
+
+int k = 0;
+	for (k; k < dealerOrder.size(); ++k) {
+
+		if (k == dealerOrder.size() - 1) {
+
+			break;
+		}
+
+		dealerStrtCount = 0;
+
+		if ((dealerOrder[k] + 1) == dealerOrder[k + 1]) {
+
+			while ((k == dealerOrder.size() - 1) || ((dealerOrder[k] + 1) == userOrder[k + 1])) {
+
+				if (k == dealerOrder.size() - 1) {
+
+					break;
+				}
+
+				dealerStrtCount++;
+				k++;
+
+				if (dealerStrtCount >= 5) {
+					break;
+          }
+
+			}
+		}
+
+	}
+
+		if (k < dealerOrder.size() - 1) {
+
+			if (dealerOrder[k] + 1 == (dealerOrder[k + 1])) {
+				dealerStrtCount++;
+			}
+		}
+    
+   //*************************************************************************************
+   
+   if (userStrtCount >= 5) {
+
+		userRankValue = 4;
+		cout << "Player has a straight\n";
+	}
+
+	if (dealerStrtCount >= 5) {
+
+		dealerRankValue = 4;
+		cout << "Dealer has a straight\n";
+	}
+
+
+ //*****************************************************************************************
+ 
+ if (userStrtCount >= 5 && userFlush == true) {
+
+		cout << "Player has a straight flush";
+
+		userRankValue = 8;
+	}
+
+	if (dealerStrtCount >= 5 && dealerFlush == true) {
+
+		cout << "Dealer has a straight flush";
+
+		dealerRankValue = 8;
+	}
